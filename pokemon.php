@@ -5,6 +5,7 @@ class Pokemon{
     private $hp;
     private $attaque;
     private $type;
+    private $status;
 //set le default
 
     public function __construct($nom = 'Zarbi', $maxHP= 20,$hp = 20, $attaque=5, $type='normal'){
@@ -15,7 +16,7 @@ class Pokemon{
         $this->type = $type;
     }
     public function getMaxHP(){
-        return $this->reserve;
+        return $this->maxHP;
     }
     public function setMaxHP($newHP){
         $this->maxHP = $newHP;
@@ -44,6 +45,12 @@ class Pokemon{
     public function setType($newType){
         $this->type = $newType;
     }
+    public function getStatus(){
+    return $this->status;
+}
+    public function setStatus($status){
+        $this->status = $status;
+    }
     //pour qu'un parametre soit obligatoire, il faut set un argument:
        // public function __construct($patate){
       //  $this->marque = $patate;
@@ -64,8 +71,21 @@ class Pokemon{
         }
     }
     
-    public function frapper($cible)
-    {
+    public function stun($cible){
+        $attakerType = $this->getType();
+        $cibleType = $cible->getType();
+
+        //CONDITION POUR STUN 
+        if (($attakerType == 'Acier'      && rand(1,10)>8) ||
+            ($attakerType == 'Fée'      && rand(1,10)>8) ||
+            ($attakerType == 'Sol'   && rand(1,10)>8)
+        ) {
+            $cible->setStatus('stun');
+            echo $cible->getNom() . ' is stunned!<br>';
+            }
+        } 
+
+    public function frapper($cible){
         $attakerType = $this->getType();
         $cibleType = $cible->getType();
 
