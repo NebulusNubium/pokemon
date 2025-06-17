@@ -54,25 +54,37 @@ class Pokemon{
         echo '<br>Stat dAttaque: ' . $this->attaque;
         echo '<br>Type: ' . $this->type;
     }
-    public function efficace($adversaire){
-        $type1 = $this->getType();
-        $type2 = $adversaire->getType();
+    
+    public function recevoirDegats($pvRestant){
+        $this->setHp($pvRestant);
+        if($pvRestant>0){
+            echo "PV Restant: " . $pvRestant . "à " . $this->getNom() . '<br>';
+        }else{
+            echo $this->getNom() . ' est K.O.! <br> <br>';
+        }
+    }
+    
+    public function frapper($cible)
+    {
+        $attakerType = $this->getType();
+        $cibleType = $cible->getType();
 
-        $attaque = $this->getAttaque();
-
-        if(
-            ($type1 == 'Acier' && $type2 == 'Fée') ||
-            ($type1 == 'Eau' && $type2 == 'Sol') ||
-            ($type1 == 'Sol' && $type2 == 'Acier')
-        ){
-            $attaque *= 2;
-            echo "<br>Attaque super efficace pour " . $this->getNom() . "!";
+        //CONDITION POUR RENDRE L'ATTAQUE PLUS PUISSANTE EN FONCTION DES FAIBLESSES
+        if (($attakerType == 'Acier'      && $cibleType == 'Fée') ||
+            ($attakerType == 'Sol'      && $cibleType == 'Acier') ||
+            ($attakerType == 'Eau'   && $cibleType == 'Sol')
+        ) {
+            $dégat = $this->getAttaque()*2 + rand(1, 10);
+            echo ' Attaque efficace ';
         } else {
-            echo "<br>Attaque normale " . $this->getNom() . ".";
+            //LA FORCE DE FRAPPE A UN EFFET ALEATOIRE EN PLUS VIA LE RAND
+            $dégat = $this->getAttaque() + rand(1, 10);
+            echo ' Attaque normale ';
         }
 
-        $this->setAttaque($attaque);
+        $pvCible = $cible->getHp();
+        // LA CIBLE RECOIS DES DEGATS
+        $cible->recevoirDegats($pvCible - $dégat);
     }
-
 }
 ?>
