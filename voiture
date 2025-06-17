@@ -1,0 +1,71 @@
+<?php 
+class Voiture{
+    private $couleur;
+    private $marque;
+    private $nbportes;
+    private $totalkm;
+    private $reserve;
+    private $phare;
+    private $essence;
+    private $consommation;
+//set le default
+
+    public function __construct($couleur = 'rouge', $nbportes = '4', $marque = 'renault', $reserve=60, $essence=60, $consommation=0.1){
+        $this->couleur = $couleur;
+        $this->marque = $marque;
+        $this->nbportes = $nbportes;
+        $this->reserve = $reserve;
+        $this->essence = $essence;
+        $this->phare = "off";
+        $this->consommation = $consommation;
+    }
+    public function getReserve(){
+        return $this->reserve;
+    }
+    public function setReserve($newreserve){
+        $this->reserver = $newreserve;
+    }
+
+    public function setCouleur($pikachu){
+        $this->couleur = $pikachu;
+    }
+    public function getKm(){
+    return $this->totalkm;
+}
+    public function phare(){
+    if($this->phare == "off"){
+        $phare = "on";
+        return $phare;
+    }else {
+        $this->phare = "on";
+        return $phare;
+    }
+    }
+    //pour qu'un parametre soit obligatoire, il faut set un argument:
+       // public function __construct($patate){
+      //  $this->marque = $patate;
+    //}
+    public function rouler($km){
+        $consommé = $km * $this->consommation; 
+        if($this->essence > $consommé){
+            echo 'la voiture ' . $this->marque . ' roule ' . $km . ' km <br>';
+            $this->totalkm += $km;
+            echo 'Total de km sur ces : ' . $this->totalkm . ' km' ; 
+            $this->essence -= $consommé;
+            
+        }elseif($this->essence - $consommé <10 && $this->essence - $consommé >0 ) {
+            echo '<br> Il faudrait faire un plein';
+        }else{
+            echo '<br> Pas assez dessence pour faire ce trajet!';
+        }
+    
+    }
+    public function plein(){
+        $plein = $this->reserve - $this->essence;
+        echo '<br> Vous avez fait un plein de' . $plein . 'L';
+    }
+    public function status(){
+        echo '<br><br>Total km:  ' . $this->totalkm . '<br> Phare: ' . $this->phare . '<br> Essence Restant(en litre): ' . $this->essence;
+    }
+}
+?>
