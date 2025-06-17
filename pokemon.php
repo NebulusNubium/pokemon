@@ -76,12 +76,12 @@ class Pokemon{
         $cibleType = $cible->getType();
 
         //CONDITION POUR STUN 
-        if (($attakerType == 'Acier'      && rand(1,10)>8) ||
-            ($attakerType == 'Fée'      && rand(1,10)>8) ||
-            ($attakerType == 'Sol'   && rand(1,10)>8)
+        if (($attakerType == 'Acier'      && rand(1,10)>7) ||
+            ($attakerType == 'Fée'      && rand(1,10)>7) ||
+            ($attakerType == 'Sol'   && rand(1,10)>7)
         ) {
             $cible->setStatus('stun');
-            echo $cible->getNom() . ' is stunned!<br>';
+            echo $cible->getNom() . ' is stunned!**************<br>';
             }
         } 
 
@@ -96,12 +96,16 @@ class Pokemon{
         ) {
             $dégat = $this->getAttaque()*2 + rand(1, 10);
             echo ' Attaque efficace ';
-        } else {
-            //LA FORCE DE FRAPPE A UN EFFET ALEATOIRE EN PLUS VIA LE RAND
+        }else{
+            //Les dégats
             $dégat = $this->getAttaque() + rand(1, 10);
             echo ' Attaque normale ';
         }
-
+        //critique:
+        if(rand(1,10)>9){
+            $dégat *=2;
+            echo 'Coup Critique!**<br>';
+        }
         $pvCible = $cible->getHp();
         // LA CIBLE RECOIS DES DEGATS
         $cible->recevoirDegats($pvCible - $dégat);

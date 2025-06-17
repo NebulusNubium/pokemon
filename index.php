@@ -15,7 +15,7 @@
     $rondoudou->pokedex();
     $tinkatink->pokedex();
     include 'function.php';
-    arena($tinkatink, $rondoudou);
+    arena($sasha,$tinkatink);
     ?>
 </body>
 </html>
